@@ -1,0 +1,92 @@
+/* ===== PALETA DE CORES EXTRAÍDA DA IMAGEM ===== */
+
+:root {
+  /* === CORES PRIMÁRIAS === */
+  --primary-blue: #2B4C8C;           /* Azul royal da faixa de formatura */
+  --primary-blue-light: #4A6BA8;    /* Azul mais claro */
+  --primary-blue-dark: #1A3366;     /* Azul mais escuro */
+  
+  /* === CORES SECUNDÁRIAS === */
+  --secondary-gold: #D4AF37;         /* Dourado sutil dos detalhes */
+  --secondary-bronze: #B8860B;      /* Bronze mais escuro */
+  --secondary-cream: #F5F5DC;       /* Creme/bege claro */
+  
+  /* === TONS NEUTROS === */
+  --neutral-dark: #1A1A1A;          /* Preto suave do terno */
+  --neutral-charcoal: #2D2D2D;      /* Cinza escuro */
+  --neutral-gray: #4A4A4A;          /* Cinza médio */
+  --neutral-light-gray: #6B6B6B;    /* Cinza claro */
+  --neutral-silver: #A8A8A8;        /* Prata */
+  --neutral-white: #FFFFFF;         /* Branco puro */
+  --neutral-off-white: #FAFAFA;     /* Branco suave */
+  
+  /* === TONS TERROSOS (do ambiente) === */
+  --earth-red: #8B4513;             /* Marrom avermelhado do chão */
+  --earth-brown: #654321;           /* Marrom escuro */
+  --earth-tan: #D2B48C;             /* Bege terroso */
+  
+  /* === GRADIENTES === */
+  --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--secondary-gold) 0%, var(--secondary-bronze) 100%);
+  --gradient-neutral: linear-gradient(135deg, var(--neutral-dark) 0%, var(--neutral-charcoal) 100%);
+  --gradient-elegant: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-gold) 100%);
+  
+  /* === CORES COM TRANSPARÊNCIA === */
+  --primary-blue-10: rgba(43, 76, 140, 0.1);
+  --primary-blue-20: rgba(43, 76, 140, 0.2);
+  --primary-blue-30: rgba(43, 76, 140, 0.3);
+  --primary-blue-50: rgba(43, 76, 140, 0.5);
+  
+  --secondary-gold-10: rgba(212, 175, 55, 0.1);
+  --secondary-gold-20: rgba(212, 175, 55, 0.2);
+  --secondary-gold-30: rgba(212, 175, 55, 0.3);
+  
+  --neutral-dark-10: rgba(26, 26, 26, 0.1);
+  --neutral-dark-20: rgba(26, 26, 26, 0.2);
+  --neutral-dark-80: rgba(26, 26, 26, 0.8);
+  --neutral-dark-90: rgba(26, 26, 26, 0.9);
+  
+  /* === CORES DE STATUS === */
+  --success: #10B981;               /* Verde para sucesso */
+  --warning: #F59E0B;               /* Amarelo para avisos */
+  --error: #EF4444;                 /* Vermelho para erros */
+  --info: var(--primary-blue);      /* Azul para informações */
+  
+  /* === CORES DE HOVER E INTERAÇÃO === */
+  --hover-blue: var(--primary-blue-light);
+  --hover-gold: var(--secondary-bronze);
+  --hover-dark: var(--neutral-charcoal);
+  
+  /* === SHADOWS === */
+  --shadow-light: 0 2px 4px var(--neutral-dark-10);
+  --shadow-medium: 0 4px 8px var(--neutral-dark-20);
+  --shadow-heavy: 0 8px 20px var(--neutral-dark-20);
+  --shadow-elegant: 0 10px 30px var(--primary-blue-20);
+  
+  /* === BORDERS === */
+  --border-light: 1px solid var(--neutral-silver);
+  --border-medium: 2px solid var(--neutral-light-gray);
+  --border-primary: 2px solid var(--primary-blue);
+  --border-gold: 2px solid var(--secondary-gold);
+}
+
+/* === CLASSES UTILITÁRIAS === */
+.text-primary { color: var(--primary-blue); }
+.text-secondary { color: var(--secondary-gold); }
+.text-dark { color: var(--neutral-dark); }
+.text-light { color: var(--neutral-light-gray); }
+.text-white { color: var(--neutral-white); }
+
+.bg-primary { background-color: var(--primary-blue); }
+.bg-secondary { background-color: var(--secondary-gold); }
+.bg-dark { background-color: var(--neutral-dark); }
+.bg-light { background-color: var(--neutral-off-white); }
+.bg-white { background-color: var(--neutral-white); }
+
+.bg-gradient-primary { background: var(--gradient-primary); }
+.bg-gradient-secondary { background: var(--gradient-secondary); }
+.bg-gradient-elegant { background: var(--gradient-elegant); }
+
+.border-primary { border: var(--border-primary); }
+.border-secondary { border: var(--border-gold); }
+.border-light { border: var(--border-light); }
