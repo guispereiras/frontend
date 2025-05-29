@@ -22,75 +22,25 @@ const Projects: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
-  // Static projects data (fallback)
-  const staticProjects: Project[] = [
-    {
-      _id: '1',
-      title: 'FPUT Paradox Physical Simulator',
-      technologies: ['Python', 'NumPy', 'Matplotlib', 'SciPy'],
-      githubUrl: 'https://github.com/guispereiras',
-      imageUrl: '/images/FPTU.jpeg',
-      category: 'simulation',
-      startDate: '2025-04-01',
-      featured: true,
-      achievements: ['Published in FATEC-SP Technical Bulletin', 'Honorable Mention Award']
-    },
-    {
-      _id: '2',
-      title: 'WhatsApp Auto-Reply Bot',
-      technologies: ['Python', 'Selenium', 'AI APIs', 'Web Automation'],
-      githubUrl: 'https://github.com/guispereiras',
-      imageUrl: '/images/wppBotReply.png',
-      category: 'automation',
-      startDate: '2025-04-01',
-      featured: true
-    },
-    {
-      _id: '3',
-      title: 'LissToDo - Task Manager',
-      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Python', 'Flask'],
-      githubUrl: 'https://github.com/guispereiras',
-      imageUrl: '/images/lissToDo.png',
-      category: 'web',
-      startDate: '2023-11-01',
-      featured: false
-    },
-    {
-      _id: '4',
-      title: 'Industrial Autonomous Car',
-      technologies: ['PLC Programming', 'Mechanical Engineering', 'Industrial Automation'],
-      imageUrl: '/images/industrialAutonomousCar.png',
-      category: 'engineering',
-      startDate: '2022-08-01',
-      endDate: '2023-06-01',
-      featured: false
-    },
-    {
-      _id: '6',
-      title: 'Data Pipeline Integration',
-      technologies: ['JSON', 'Database Integration', 'Data Engineering'],
-      imageUrl: '/images/dataPipeline.png',
-      category: 'data',
-      startDate: '2024-03-01',
-      featured: false
+  const fetchProjects = async () => {
+    console.log('🚀 Buscando projetos...');
+    try {
+      const response = await axios.get('http://localhost:5000/api/projects');
+      console.log('✅ Projetos recebidos:', response.data);
+      setProjects(response.data);
+    } catch (error) {
+      console.error('❌ Erro ao buscar projetos:', error);
+      setProjects([]);
+    } finally {
+      // ✅ ESTA LINHA É CRUCIAL - sempre parar o loading
+      setLoading(false);
+      console.log('✅ Loading finalizado');
     }
-  ];
+  };
 
   useEffect(() => {
     fetchProjects();
   }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const response = await axios.get('/api/projects');
-      setProjects(response.data);
-    } catch (error) {
-      console.log('Using static data - API not available');
-      setProjects(staticProjects);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const categories = [
     { key: 'all', label: 'All Projects' },
@@ -163,7 +113,7 @@ const Projects: React.FC = () => {
             ))}
           </div>
         </div>
-      </div>
+        </div>
     </section>
   );
 };
@@ -214,7 +164,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, featured = false }) 
       </div>
 
       <div className="project-content">
-          <h4 className="project-title">{project.title}</h4>
+        <h4 className="project-title">{project.title}</h4>
       
         {project.achievements && project.achievements.length > 0 && (
           <div className="project-achievements">

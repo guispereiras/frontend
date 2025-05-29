@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Github, ExternalLink, Calendar, Eye, Heart, Award, Lightbulb, Wrench } from 'lucide-react';
-import axios from 'axios';
-import './ProjectDetail.css';
+import React, { useState, useEffect } from "react";
+import {
+  ArrowLeft,
+  Github,
+  ExternalLink,
+  Calendar,
+  Eye,
+  Heart,
+  Award,
+  Lightbulb,
+  Wrench,
+} from "lucide-react";
+import axios from "axios";
+import "./ProjectDetail.css";
 
 interface Project {
   _id: string;
@@ -33,7 +43,7 @@ interface ProjectDetailProps {
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
   // Simulando useParams - você pode passar o ID como prop ou usar context
-  const id = projectId || '1'; // ID padrão para exemplo
+  const id = projectId || "1"; // ID padrão para exemplo
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,11 +59,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
 
   const fetchProject = async (projectId: string) => {
     try {
-      const response = await axios.get(`/api/projects/${projectId}`);
+      const response = await axios.get(
+        `http://localhost:5000/api/projects/${projectId}`
+      );
       setProject(response.data);
     } catch (err) {
-      setError('Project not found');
-      console.error('Error fetching project:', err);
+      setError("Project not found");
+      console.error("Error fetching project:", err);
     } finally {
       setLoading(false);
     }
@@ -61,12 +73,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
 
   const trackProjectView = async (projectId: string) => {
     try {
-      await axios.post('/api/analytics/project', {
+      await axios.post("http://localhost:5000/api/analytics/project", {
         projectId,
-        action: 'view'
+        action: "view",
       });
     } catch (err) {
-      console.log('Analytics tracking failed:', err);
+      console.log("Analytics tracking failed:", err);
     }
   };
 
@@ -74,17 +86,21 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
     if (!project || liked) return;
 
     try {
-      const response = await axios.post(`/api/projects/${project._id}/like`);
-      setProject(prev => prev ? { ...prev, likes: response.data.likes } : null);
+      const response = await axios.post(
+        `http://localhost:5000/api/projects/${project._id}/like`
+      );
+      setProject((prev) =>
+        prev ? { ...prev, likes: response.data.likes } : null
+      );
       setLiked(true);
-      
+
       // Track like in analytics
-      await axios.post('/api/analytics/project', {
+      await axios.post("http://localhost:5000/api/analytics/project", {
         projectId: project._id,
-        action: 'like'
+        action: "like",
       });
     } catch (err) {
-      console.error('Error liking project:', err);
+      console.error("Error liking project:", err);
     }
   };
 
@@ -98,21 +114,23 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'long',
-      year: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric",
     });
   };
 
   const getDuration = () => {
-    if (!project) return '';
-    
+    if (!project) return "";
+
     const start = new Date(project.startDate);
     const end = project.endDate ? new Date(project.endDate) : new Date();
-    const months = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30));
-    
-    if (months < 1) return '< 1 month';
-    return months === 1 ? '1 month' : `${months} months`;
+    const months = Math.round(
+      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30)
+    );
+
+    if (months < 1) return "< 1 month";
+    return months === 1 ? "1 month" : `${months} months`;
   };
 
   if (loading) {
@@ -134,7 +152,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
         <div className="container">
           <div className="error-state">
             <h2>Project Not Found</h2>
-            <p>The project you're looking for doesn't exist or has been removed.</p>
+            <p>
+              The project you're looking for doesn't exist or has been removed.
+            </p>
             <button onClick={handleBack} className="btn btn-primary">
               <ArrowLeft size={18} />
               Back to Portfolio
@@ -145,7 +165,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
     );
   }
 
-  const images = project.images && project.images.length > 0 ? project.images : [project.imageUrl];
+  const images =
+    project.images && project.images.length > 0
+      ? project.images
+      : [project.imageUrl];
 
   return (
     <div className="project-detail-container">
@@ -156,10 +179,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
             <ArrowLeft size={20} />
             Back to Portfolio
           </button>
-          
+
           <div className="project-meta">
             <span className={`status-badge ${project.status}`}>
-              {project.status.replace('-', ' ')}
+              {project.status.replace("-", " ")}
             </span>
             {project.featured && (
               <span className="featured-badge">
@@ -174,7 +197,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
         <div className="project-content">
           <div className="project-info">
             <h1 className="project-title">{project.title}</h1>
-            
+
             <div className="project-stats">
               <div className="stat">
                 <Eye size={16} />
@@ -211,7 +234,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                   View Code
                 </a>
               )}
-              
+
               {project.liveUrl && (
                 <a
                   href={project.liveUrl}
@@ -223,14 +246,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                   Live Demo
                 </a>
               )}
-              
+
               <button
                 onClick={handleLike}
-                className={`btn btn-like ${liked ? 'liked' : ''}`}
+                className={`btn btn-like ${liked ? "liked" : ""}`}
                 disabled={liked}
               >
-                <Heart size={18} fill={liked ? 'currentColor' : 'none'} />
-                {liked ? 'Liked!' : 'Like'}
+                <Heart size={18} fill={liked ? "currentColor" : "none"} />
+                {liked ? "Liked!" : "Like"}
               </button>
             </div>
           </div>
@@ -242,13 +265,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                 alt={`${project.title} - Image ${currentImageIndex + 1}`}
                 className="project-image"
               />
-              
+
               {images.length > 1 && (
                 <div className="image-navigation">
                   {images.map((_, index) => (
                     <button
                       key={index}
-                      className={`image-dot ${index === currentImageIndex ? 'active' : ''}`}
+                      className={`image-dot ${
+                        index === currentImageIndex ? "active" : ""
+                      }`}
                       onClick={() => setCurrentImageIndex(index)}
                     />
                   ))}

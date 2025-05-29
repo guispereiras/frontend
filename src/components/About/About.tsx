@@ -12,35 +12,20 @@ interface Skill {
 const About: React.FC = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
 
-  // Static skills data
-  const staticSkills: Skill[] = [
-    { name: 'JavaScript', level: 85, category: 'Frontend' },
-    { name: 'TypeScript', level: 80, category: 'Frontend' },
-    { name: 'React', level: 85, category: 'Frontend' },
-    { name: 'Node.js', level: 75, category: 'Backend' },
-    { name: 'Python', level: 90, category: 'Backend' },
-    { name: 'Flask', level: 80, category: 'Backend' },
-    { name: 'AWS', level: 70, category: 'Cloud' },
-    { name: 'MongoDB', level: 75, category: 'Database' },
-    { name: 'Git', level: 85, category: 'Tools' },
-    { name: 'Machine Learning', level: 75, category: 'AI/Data' },
-    { name: 'C++', level: 70, category: 'Systems' },
-    { name: 'ESP32/IoT', level: 80, category: 'Hardware' }
-  ];
+  const fetchSkills = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/skills');
+    setSkills(response.data);
+  } catch (error) {
+    console.error('Error fetching skills:', error);
+    // Opcional: manter alguns dados de fallback ou mostrar mensagem de erro
+    setSkills([]);
+  }
+};
 
   useEffect(() => {
     fetchSkills();
   }, []);
-
-  const fetchSkills = async () => {
-    try {
-      const response = await axios.get('/api/skills');
-      setSkills(response.data);
-    } catch (error) {
-      console.log('Using static skills data');
-      setSkills(staticSkills);
-    }
-  };
 
   const groupedSkills = skills.reduce((acc, skill) => {
     if (!acc[skill.category]) {

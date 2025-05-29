@@ -119,3 +119,69 @@
     border-bottom: none;
   }
 }
+/* Adicione estas linhas ao seu Header.css existente */
+
+.logo-text {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.logo-text:hover {
+  color: #667eea;
+}
+
+.logo-text:active {
+  transform: scale(0.98);
+}
+
+/* Efeito quando o menu secreto é ativado */
+.logo-text.secret-activated {
+  color: #667eea !important;
+  text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+  animation: secretPulse 1s ease-out;
+}
+
+@keyframes secretPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+  }
+}
+
+/* Indicador sutil de que é clicável (apenas quando pressionado) */
+.logo-text:active::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 4px;
+  animation: secretHint 5s linear;
+}
+
+@keyframes secretHint {
+  0% {
+    opacity: 0;
+    border-color: rgba(102, 126, 234, 0.1);
+  }
+  20% {
+    opacity: 1;
+    border-color: rgba(102, 126, 234, 0.3);
+  }
+  100% {
+    opacity: 1;
+    border-color: rgba(102, 126, 234, 0.8);
+  }
+}

@@ -70,7 +70,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     setSubmitStatus('idle');
 
     try {
-      await axios.post('/api/contact', formData);
+      await axios.post('http://localhost:5000/api/contact', formData);
       setSubmitStatus('success');
       setStatusMessage('Thank you! Your message has been sent successfully.');
       setFormData({ name: '', email: '', subject: '', message: '' });
